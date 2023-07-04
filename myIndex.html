@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Time</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="display">
+            <div id="clock"></div>
+        </div>
+    </div>
+    <script>
+        function displayTime() {
+
+            const clock = document.querySelector(".display #clock");
+            let time = new Date();
+            let hours = time.getHours();
+            let minutes = time.getMinutes();
+            let seconds = time.getSeconds();
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            clock.textContent = hours + ":" + minutes + ":" + seconds;
+        }
+        setInterval(displayTime);
+    </script>
+</body>
+
+</html>
