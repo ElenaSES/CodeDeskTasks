@@ -1,0 +1,16 @@
+       .container {
+           width: 100px;
+           height: 100px;
+           background-color: #d91515;
+           position: relative;
+           left: 0;
+           transition: left 1s ease-in-out;
+       }
+
+       .container.move {
+           left: 300px;
+       }
+
+       .button {
+           margin-top: 10px;
+       }

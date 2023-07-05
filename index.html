@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript Animation</title>
+    <style>
+        #container {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: relative;
+            transition: transform 1s ease-in-out;
+        }
+    </style>
+    <script>
+        function animateObject() {
+            var container = document.getElementById("container");
+            var currentPosition = 0;
+            var direction = 1;
+
+            function move() {
+                currentPosition += direction;
+                container.style.transform = "translateX(" + currentPosition + "px)";
+
+                if (currentPosition >= 200) {
+                    direction = -1;
+                } else if (currentPosition <= 0) {
+                    direction = 1;
+                }
+
+                requestAnimationFrame(move);
+            }
+
+            move();
+        }
+
+        animateObject();
+    </script>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+
+</html>
+
+
+
