@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Form Data Collection</title>
+
+</head>
+
+<body>
+    
+    <h1>Form Submission</h1>
+    <form id="myForm" onsubmit="handleFormSubmission(event)">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script>
+        var formData = [];
+
+        function handleFormSubmission(event) {
+            event.preventDefault();
+
+            let form = document.getElementById("myForm");
+            let name = form.elements["name"].value;
+            let email = form.elements["email"].value;
+          
+
+            let formDataObject = {
+                name: name,
+                email: email,
+            };
+
+            formData.push(formDataObject);
+
+            // Display a success message or perform desired actions with the form data
+          
+            console.log(formData);
+
+            alert("Form submitted successfully!");
+        }
+    </script>
+</body>
+
+</html>
