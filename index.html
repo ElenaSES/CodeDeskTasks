@@ -3,6 +3,15 @@
 
 <head>
     <title>Search Function</title>
+    
+</head>
+
+<body>
+    <h2>Search Items</h2>
+    <input type="text" id="searchTerm" placeholder="Enter search term" oninput="searchItems()">
+
+    <h3>Search Results</h3>
+    <ul id="searchResults"></ul>
     <script>
         var items = [
             { name: "Apple", category: "Fruit" },
@@ -30,15 +39,10 @@
                 resultsContainer.appendChild(listItem);
             });
         }
+
+
+        
     </script>
-</head>
-
-<body>
-    <h2>Search Items</h2>
-    <input type="text" id="searchTerm" placeholder="Enter search term" oninput="searchItems()">
-
-    <h3>Search Results</h3>
-    <ul id="searchResults"></ul>
 </body>
 
 </html>
