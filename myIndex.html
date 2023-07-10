@@ -56,45 +56,46 @@
         };
 
         
-         function listItems(itemObject) {
-                let table = document.createElement('table');
-                table.className = 'table';
+        function listItems(itemObject) {
 
-                let tableHeader = document.createElement('tr');
-                var headerCells = ['Name', 'Category', 'Price'];
+            let table = document.createElement('table');
+            table.className = 'table';
 
-                headerCells.forEach(function (cellText) {
-                    let th = document.createElement('th');
-                    th.textContent = cellText;
-                    tableHeader.appendChild(th);
-                });
+            let tableHeader = document.createElement('tr');
+            let headerCells = ['Name', 'Category', 'Price'];
 
-                table.appendChild(tableHeader);
+            headerCells.forEach(function (cellText) {
+                let th = document.createElement('th');
+                th.textContent = cellText;
+                tableHeader.appendChild(th);
+            });
 
-                for (let itemKey in itemObject) {
-                    if (itemObject.hasOwnProperty(itemKey)) {
-                        let item = itemObject[itemKey];
+            table.appendChild(tableHeader);
 
-                        let tableRow = document.createElement('tr');
-                        let nameCell = document.createElement('td');
-                        nameCell.textContent = item.name;
-                        let categoryCell = document.createElement('td');
-                        categoryCell.textContent = item.category;
-                        let priceCell = document.createElement('td');
-                        priceCell.textContent = '$' + item.price;
+            for (let itemKey in itemObject) {
+                if (itemObject.hasOwnProperty(itemKey)) {
+                    let item = itemObject[itemKey];
 
-                        tableRow.appendChild(nameCell);
-                        tableRow.appendChild(categoryCell);
-                        tableRow.appendChild(priceCell);
+                    let tableRow = document.createElement('tr');
+                    let nameCell = document.createElement('td');
+                    nameCell.textContent = item.name;
+                    let categoryCell = document.createElement('td');
+                    categoryCell.textContent = item.category;
+                    let priceCell = document.createElement('td');
+                    priceCell.textContent = '$' + item.price;
 
-                        table.appendChild(tableRow);
-                    }
+                    tableRow.appendChild(nameCell);
+                    tableRow.appendChild(categoryCell);
+                    tableRow.appendChild(priceCell);
+
+                    table.appendChild(tableRow);
                 }
-
-                itemContainer.appendChild(table);
             }
 
-            listItems(items);
+            itemContainer.appendChild(table);
+        };
+
+        listItems(items);
     </script>
 </body>
 </html>
