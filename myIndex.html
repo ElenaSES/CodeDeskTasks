@@ -3,56 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Form Validation</title>
+    <title>Calendar</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-    <div class="container-fluid">
-        <!-- <div class="row">
-            <div class="col">
-                <div class="alert alert-success hide" role="alert" id="alert" >
-                    "Form submitted successfully!"
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h1 id="title">Calendar</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="card">
+                <div class="card-header">
+                <button type="button" class="btn btn-info" id="prevMonthBtn">Previous</button>
+                <button type="button" class="btn btn-info" id="nextMonthBtn">Next</button>
+                <span id="month"></span>
                 </div>
-            </div>
-        </div> -->
-        <div class="row">
-            <div class="col-6 offset-3">
-
-                <div id="title" class="my-5">
-                    <h1>Registration Form</h1>
+                <div class="card-body" id="calendarContainer">
+                  
                 </div>
-                <form id="myForm" onsubmit="return validateForm()">
-                   
-                    <div class="col mb-1">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" >
-                        <p id="nameError">
-                        </p>
-                    </div>
-                    <div class="col mb-1">
-                        <label for="email">Email </label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
-                        <p id="emailError">
-                        </p>
-                    </div>
-                    <div class="col mb-1">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" >
-                        <p  id="passwordError">
-                        </p>
-                    </div>
-                    
-                   <div class="text-center">
-                       <button class="btn btn-primary" type="submit">Submit form</button>
-                   </div>
-                </form>
-            </div>
             </div>
         </div>
-
+    </div>
+</div>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -62,58 +40,92 @@
         crossorigin="anonymous"></script>
 
     <script>
-        function validateForm() {
-            // let alert = document.getElementById("alert");
-            let form = document.getElementById("myForm");
-            let name = form.elements["name"].value;
-            let email = form.elements["email"].value;
-            let password = form.elements["password"].value;
+        let calendarContainer = document.getElementById('calendarContainer');
+        let prevMonthBtn = document.getElementById('prevMonthBtn');
+        let nextMonthBtn = document.getElementById('nextMonthBtn');
+        let currentDate = new Date();
+        let currentYear = currentDate.getFullYear();
+        let currentMonth = currentDate.getMonth();
+        
+        
+        function displayCalendar(year, month) {
+            let firstDay = new Date(year, month, 1);
+            let startingDay = firstDay.getDay(); 
 
-            let nameError = document.getElementById("nameError");
-            let emailError = document.getElementById("emailError");
-            let passwordError = document.getElementById("passwordError");
+            let daysInMonth = new Date(year, month + 1, 0).getDate();
 
-           
+            let table = document.createElement('table');
+            table.className = "table"
 
+            let tableHeader = document.createElement('tr');
+            let dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-            let isValid = true;
-
-            // Perform validation checks
-            if (name === "") {
-                nameError.innerHTML = "Name is required.";
-                isValid = false;
-            }else{
-                nameError.innerHTML = "";
+            for (let i = 0; i < 7; i++) {
+                let th = document.createElement('th');
+                th.textContent = dayNames[i];
+                tableHeader.appendChild(th);
             }
 
-            if (email === "") {
-                emailError.innerHTML = "Email is required.";
-                isValid = false;
-            } else if (!/\S+@\S+\.\S+/.test(email)) {
-                emailError.innerHTML = "Invalid email format.";
-                isValid = false;
-            } else{
-                emailError.innerHTML = "";
-            }
+                table.appendChild(tableHeader);
 
-            if (password === "") {
-                passwordError.innerHTML = "Password is required.";
-                isValid = false;
-            } else if (password.length < 6) {
-                passwordError.innerHTML = "Password must be at least 6 characters long.";
-                isValid = false;
-            }
+            
+                let date = 1;
+                for (let row = 0; row < 6; row++) {
+                    let tableRow = document.createElement('tr');
 
-             if (isValid) {
-                // alert.classList.remove("hide"); 
+                    for (let col = 0; col < 7; col++) {
+                        if (row === 0 && col < startingDay) {
+                            let emptyCell = document.createElement('td');
+                            tableRow.appendChild(emptyCell);
+                        } else if (date > daysInMonth) {
+                            break;
+                        } else {
+                            let cell = document.createElement('td');
+                            cell.textContent = date;
+                            tableRow.appendChild(cell);
 
-                 alert("Form submitted successfully!");
-            }
-           
+                            if (currentYear === year && currentMonth === month && date === currentDate.getDate()) {
+                                cell.classList.add('today');
+                            }
 
-            return isValid;
+                            if (col === 0 || col === 6) {
+                                cell.classList.add('weekend');
+                            }
+
+                            date++;
+                        }
+                    }
+
+                    table.appendChild(tableRow);
+                }
+
+            calendarContainer.innerHTML = '';
+            calendarContainer.appendChild(table);
         }
+
+        function navigateToPreviousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentYear--;
+                currentMonth = 11;
+            }
+            displayCalendar(currentYear, currentMonth);
+        }
+
+    function navigateToNextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentYear++;
+            currentMonth = 0;
+        }
+        displayCalendar(currentYear, currentMonth);
+    }
+
+        prevMonthBtn.addEventListener('click', navigateToPreviousMonth);
+        nextMonthBtn.addEventListener('click', navigateToNextMonth);
+
+        displayCalendar(currentYear, currentMonth);
+        
     </script>
-    
 </body>
 </html>
