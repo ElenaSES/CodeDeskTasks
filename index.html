@@ -2,48 +2,84 @@
 <html>
 
 <head>
-    <title>Pagination</title>
-    <script>
-        var items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Array of items
-
-        var itemsPerPage = 3; // Number of items to display per page
-
-        function displayItems(pageNumber) {
-            var startIndex = (pageNumber - 1) * itemsPerPage;
-            var endIndex = startIndex + itemsPerPage;
-
-            var container = document.getElementById("itemContainer");
-            container.innerHTML = ""; // Clear previous items
-
-            for (var i = startIndex; i < endIndex; i++) {
-                if (items[i]) {
-                    var listItem = document.createElement("li");
-                    listItem.textContent = items[i];
-                    container.appendChild(listItem);
-                }
-            }
+    <title>Form Validation</title>
+    <style>
+        .error {
+            color: red;
         }
+    </style>
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById("name");
+            var emailInput = document.getElementById("email");
+            var passwordInput = document.getElementById("password");
 
-        function handlePaginationClick(pageNumber) {
-            displayItems(pageNumber);
+            var nameValue = nameInput.value.trim();
+            var emailValue = emailInput.value.trim();
+            var passwordValue = passwordInput.value.trim();
+
+            var nameError = document.getElementById("nameError");
+            var emailError = document.getElementById("emailError");
+            var passwordError = document.getElementById("passwordError");
+
+            var isValid = true;
+
+            // Validate name
+            if (nameValue === "") {
+                nameError.textContent = "Name is required";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Validate email
+            if (emailValue === "") {
+                emailError.textContent = "Email is required";
+                isValid = false;
+            } else if (!/\S+@\S+\.\S+/.test(emailValue)) {
+                emailError.textContent = "Invalid email format";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Validate password
+            if (passwordValue === "") {
+                passwordError.textContent = "Password is required";
+                isValid = false;
+            } else if (passwordValue.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            if (isValid) {
+                alert("Form submitted successfully!");
+            }
+
+            return isValid;
         }
     </script>
 </head>
 
 <body>
-    <h2>Items</h2>
-    <ul id="itemContainer"></ul>
+    <h2>Registration Form</h2>
+    <form onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <span class="error" id="nameError"></span>
 
-    <div id="pagination">
-        <button onclick="handlePaginationClick(1)">1</button>
-        <button onclick="handlePaginationClick(2)">2</button>
-        <button onclick="handlePaginationClick(3)">3</button>
-        <!-- Add more buttons or page number links as needed -->
-    </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
 
-    <script>
-        displayItems(1); // Display initial items on page load
-    </script>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" minlength="6" required>
+        <span class="error" id="passwordError"></span>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>
