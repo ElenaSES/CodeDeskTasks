@@ -8,8 +8,23 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>List of Items</h1>        
+                    </div>
+                    <div class="card-body" id="itemContainer">
 
-    <div id="itemContainer"></div>
+                       
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+   
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -19,10 +34,10 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 
-     <script>
-        var itemContainer = document.getElementById('itemContainer');
+    <script>
+        let itemContainer = document.getElementById('itemContainer');
 
-        var items = {
+        let items = {
             item1: {
                 name: 'Item 1',
                 category: 'Category 1',
@@ -40,37 +55,47 @@
             }
         };
 
-        function listItems(itemObject) {
-            var itemList = document.createElement('ul');
+        
+         function listItems(itemObject) {
+                let table = document.createElement('table');
+                table.className = 'table';
 
-            for (var itemKey in itemObject) {
-                if (itemObject.hasOwnProperty(itemKey)) {
-                    var item = itemObject[itemKey];
+                let tableHeader = document.createElement('tr');
+                var headerCells = ['Name', 'Category', 'Price'];
 
-                    var listItem = document.createElement('li');
-                    var itemName = document.createElement('strong');
-                    itemName.textContent = item.name;
+                headerCells.forEach(function (cellText) {
+                    let th = document.createElement('th');
+                    th.textContent = cellText;
+                    tableHeader.appendChild(th);
+                });
 
-                    var itemCategory = document.createElement('span');
-                    itemCategory.textContent = 'Category: ' + item.category;
+                table.appendChild(tableHeader);
 
-                    var itemPrice = document.createElement('span');
-                    itemPrice.textContent = 'Price: $' + item.price;
+                for (let itemKey in itemObject) {
+                    if (itemObject.hasOwnProperty(itemKey)) {
+                        let item = itemObject[itemKey];
 
-                    listItem.appendChild(itemName);
-                    listItem.appendChild(document.createElement('br'));
-                    listItem.appendChild(itemCategory);
-                    listItem.appendChild(document.createElement('br'));
-                    listItem.appendChild(itemPrice);
+                        let tableRow = document.createElement('tr');
+                        let nameCell = document.createElement('td');
+                        nameCell.textContent = item.name;
+                        let categoryCell = document.createElement('td');
+                        categoryCell.textContent = item.category;
+                        let priceCell = document.createElement('td');
+                        priceCell.textContent = '$' + item.price;
 
-                    itemList.appendChild(listItem);
+                        tableRow.appendChild(nameCell);
+                        tableRow.appendChild(categoryCell);
+                        tableRow.appendChild(priceCell);
+
+                        table.appendChild(tableRow);
+                    }
                 }
+
+                itemContainer.appendChild(table);
             }
 
-            itemContainer.appendChild(itemList);
-        }
-
-        listItems(items);
+            listItems(items);
     </script>
 </body>
 </html>
+
