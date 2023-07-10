@@ -68,35 +68,43 @@
             displayResults(filteredItems);
         }
 
-        function displayResults(items) {
-            let table = document.createElement('table');
-            table.className = "table"
-            let tableHeader = createTableRow(['#', 'Name', 'Category']);
-            tableHeader.style = "font-weight: bold;"
-            table.appendChild(tableHeader);
+          
+            function displayResults(items) {
+                let table = document.createElement('table');
+                table.className = 'table';
 
-            
-            items.forEach(function(item, index) {
-           
-            let tableRow = createTableRow([index+1, item.name, item.category]);
-            table.appendChild(tableRow);
-            });
+                let tableHeader = document.createElement('tr');
+                let headerCells = ['Name', 'Category'];
 
-            resultsContainer.innerHTML = '';
-            resultsContainer.appendChild(table);
-        }
+                headerCells.forEach(function (cellText) {
+                    let th = document.createElement('th');
+                    th.textContent = cellText;
+                    tableHeader.appendChild(th);
+                });
 
-        function createTableRow(cells) {
-            let row = document.createElement('tr');
+                table.appendChild(tableHeader);
 
-            cells.forEach(function(cellText) {
-            let cell = document.createElement('td');
-            cell.textContent = cellText;
-            row.appendChild(cell);
-            });
+                for (let itemKey in items) {
+                    if (items.hasOwnProperty(itemKey)) {
+                        let item = items[itemKey];
 
-            return row;
-        }
+                        let tableRow = document.createElement('tr');
+                        let nameCell = document.createElement('td');
+                        nameCell.textContent = item.name;
+                        let categoryCell = document.createElement('td');
+                        categoryCell.textContent = item.category;
+                      
+
+                        tableRow.appendChild(nameCell);
+                        tableRow.appendChild(categoryCell);
+                       
+
+                        table.appendChild(tableRow);
+                    }
+                }
+                resultsContainer.innerHTML = '';
+                resultsContainer.appendChild(table);
+            }
 
         searchInput.addEventListener('input', function(event) {
             let searchTerm = event.target.value;
