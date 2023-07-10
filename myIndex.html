@@ -50,14 +50,13 @@
         
         function displayCalendar(year, month) {
             let firstDay = new Date(year, month, 1);
-            let startingDay = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
+            let startingDay = firstDay.getDay(); 
 
             let daysInMonth = new Date(year, month + 1, 0).getDate();
 
             let table = document.createElement('table');
             table.className = "table"
 
-                // Create table header with day names
             let tableHeader = document.createElement('tr');
             let dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -69,12 +68,11 @@
 
                 table.appendChild(tableHeader);
 
-                // Create table rows for each week
+            
                 let date = 1;
                 for (let row = 0; row < 6; row++) {
                     let tableRow = document.createElement('tr');
 
-                    // Create individual day cells
                     for (let col = 0; col < 7; col++) {
                         if (row === 0 && col < startingDay) {
                             let emptyCell = document.createElement('td');
@@ -101,33 +99,33 @@
                     table.appendChild(tableRow);
                 }
 
-                calendarContainer.innerHTML = '';
-                calendarContainer.appendChild(table);
-            }
-            function navigateToPreviousMonth() {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentYear--;
-                    currentMonth = 11;
-                }
-                displayCalendar(currentYear, currentMonth);
-            }
+            calendarContainer.innerHTML = '';
+            calendarContainer.appendChild(table);
+        }
 
-            function navigateToNextMonth() {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentYear++;
-                    currentMonth = 0;
-                }
-                displayCalendar(currentYear, currentMonth);
+        function navigateToPreviousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentYear--;
+                currentMonth = 11;
             }
-
-            prevMonthBtn.addEventListener('click', navigateToPreviousMonth);
-            nextMonthBtn.addEventListener('click', navigateToNextMonth);
-
             displayCalendar(currentYear, currentMonth);
+        }
 
+    function navigateToNextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentYear++;
+            currentMonth = 0;
+        }
+        displayCalendar(currentYear, currentMonth);
+    }
 
+        prevMonthBtn.addEventListener('click', navigateToPreviousMonth);
+        nextMonthBtn.addEventListener('click', navigateToNextMonth);
+
+        displayCalendar(currentYear, currentMonth);
+        
     </script>
 </body>
 </html>
