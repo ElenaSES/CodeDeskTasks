@@ -2,74 +2,21 @@
 <html>
 
 <head>
-    <title>Calendar</title>
-    <style>
-        .calendar {
-            font-family: Arial, sans-serif;
-        }
-
-        .calendar table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .calendar th,
-        .calendar td {
-            padding: 5px;
-            text-align: center;
-            border: 1px solid #ccc;
-        }
-
-        .calendar .current-day {
-            background-color: #f5f5f5;
-        }
-    </style>
+    <title>Button Click Event Handling</title>
     <script>
-        function displayCalendar(year, month) {
-            var container = document.getElementById("calendarContainer");
-
-            // Calculate the number of days in the specified month
-            var numDays = new Date(year, month, 0).getDate();
-
-            // Calculate the first day of the month (0 - Sunday, 1 - Monday, etc.)
-            var firstDay = new Date(year, month - 1, 1).getDay();
-
-            // Create the HTML structure for the calendar
-            var calendarHTML = "<table class='calendar'>";
-            calendarHTML += "<tr><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr>";
-
-            var day = 1;
-
-            for (var i = 0; i < 6; i++) {
-                calendarHTML += "<tr>";
-
-                for (var j = 0; j < 7; j++) {
-                    if (i === 0 && j < firstDay) {
-                        calendarHTML += "<td></td>"; // Empty cell before the first day
-                    } else if (day <= numDays) {
-                        var currentDate = new Date();
-
-                        if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && currentDate.getDate() === day) {
-                            calendarHTML += "<td class='current-day'>" + day + "</td>"; // Highlight the current day
-                        } else {
-                            calendarHTML += "<td>" + day + "</td>";
-                        }
-
-                        day++;
-                    } else {
-                        calendarHTML += "<td></td>"; // Empty cell after the last day
-                    }
-                }
-
-                calendarHTML += "</tr>";
-
-                if (day > numDays) {
-                    break;
-                }
-            }
-
-            calendarHTML += "</table>";
-
-            container.innerHTML = calendarHTML;
+        function handleButtonClick() {
+            alert("Button clicked!");
         }
-    </script>   
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var button = document.getElementById("myButton");
+            button.addEventListener("click", handleButtonClick);
+        });
+    </script>
+</head>
+
+<body>
+    <button id="myButton">Click me</button>
+</body>
+
+</html>
